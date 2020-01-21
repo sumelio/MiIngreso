@@ -1,0 +1,28 @@
+version: "3.7"
+
+services:
+  frontend:
+    image: nginx
+    volumes:
+      - ./FrontEnd/build/:/usr/share/nginx/html
+    expose:
+      - 8882
+    ports:
+      - 8882:80
+    networks:
+     - miIngreso-network
+
+  backend:
+    build:
+     context: ./BackEnd
+    image: miingreso-front
+    expose:
+     - 8881
+    ports:
+     - 8881:8881
+    networks:
+     - miIngreso-network
+
+networks:
+    miIngreso-network:
+        driver: bridge
