@@ -1,0 +1,31 @@
+version: "3"
+
+services:
+  backend:
+    build:
+     context: ./BackEnd
+    image: miIngreso-backend
+    container_name: miIngreso-backend
+    expose:
+     - 8881
+    ports:
+     - "8881:8881"
+    networks:
+     - miIngreso-network
+  front:
+    build:
+     context: ./FrontEnd
+    container_name: miIngreso-front
+    ports:
+      - "8882:80"
+    depends_on: 
+      - backend
+    volumes:
+      - ./toolbox-react-redux/src:/app/src  
+    networks:
+     - miIngreso-network
+
+networks:
+    miIngreso-network:
+        driver: bridge
+
